@@ -1,0 +1,35 @@
+﻿@using ASP_Final_Project_Shopping.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<Category>
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Categories</h2>
+
+<div class="col-md-12" style="margin-top:30px;">
+    <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="link btn-link" style="margin-top: 30px;">Create new one category</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cat in Model)
+            {
+                <tr>
+                    <td>@cat.Id</td>
+                    <td>@cat.CategoryName</td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@cat.Id" class="btn btn-warning">Edit</a>
+                        <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@cat.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

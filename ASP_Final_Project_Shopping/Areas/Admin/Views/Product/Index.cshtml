@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Products</h2>
+
+<div class="col-md-12">
+    <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="link btn-link">Create new one product</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>On sale</th>
+                <th>Department</th>
+                <th>Color</th>
+                <th>Weight</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prod in Model)
+            {
+            <tr>
+                <td>@prod.Name</td>
+                <td>@prod.Price</td>
+                <td>@(prod.Description.Substring(0,25) + "...")</td>
+                <td><input type="checkbox" value="@prod.OnSale" disabled /></td>
+                <td>@prod.Department</td>
+                <td>@prod.Color</td>
+                <td>@prod.Weight</td>
+                <td><img src="@(prod.Images.Any(i => !string.IsNullOrEmpty(i.ImageUrl)) ?
+                prod.Images.First(i => !string.IsNullOrEmpty(i.ImageUrl)).ImageUrl : "/img/product/no-image.png")"
+                         style="height: 100px; object-fit: contain;"/></td>
+                <td>@prod.Category.CategoryName</td>
+                <td><a asp-area="Admin" asp-controller="Product" asp-action="Edit" class="btn btn-warning">Edit</a>
+                    <a asp-area="Admin" asp-controller="Product" asp-action="Delete" class="btn btn-danger">Delete</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
